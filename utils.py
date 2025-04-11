@@ -1,4 +1,6 @@
 import torch
+
+
 def compute_gradient_penalty(critic, real_samples, fake_samples, device):
     alpha = torch.rand(real_samples.size(0), 1, 1, 1, device=device)
     interpolates = (alpha * real_samples + (1 - alpha) * fake_samples).requires_grad_(True)
