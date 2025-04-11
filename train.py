@@ -1,7 +1,8 @@
 import os
 import torch
 import torch.optim as optim
-from models import Generator, Critic, compute_gradient_penalty
+from models import Generator, Critic
+from utils import compute_gradient_penalty, critic_acurracy
 from dataset import dataset
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
@@ -74,4 +75,3 @@ for epoch in range(num_epochs):
     torch.save(critic.state_dict(), f"checkpoint/critic.pth")
 
 writer.close()
-
