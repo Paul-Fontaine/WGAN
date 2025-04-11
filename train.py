@@ -62,6 +62,7 @@ for epoch in range(num_epochs):
     # epoch end
     # log generated images with writer and save model
     with torch.no_grad():
+        z = torch.randn(9, latent_dim, 1, 1, device=device)
         fake_imgs = generator(fixed_noise).detach().cpu().numpy()
     fake_imgs = (fake_imgs + 1) / 2
     writer.add_images("Generated Images", fake_imgs, epoch)
