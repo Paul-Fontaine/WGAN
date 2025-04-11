@@ -2,7 +2,7 @@ import os
 import torch
 import torch.optim as optim
 from models import Generator, Critic
-from utils import compute_gradient_penalty, critic_acurracy
+from utils import compute_gradient_penalty, critic_accuracy
 from dataset import dataset
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
