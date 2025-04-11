@@ -35,7 +35,7 @@ for epoch in range(num_epochs):
 
             # Train Critic
             for _ in range(n_critic):
-                z = torch.randn(real_imgs.size(0), latent_dim, 1, 1, device=device)
+                z = torch.randn(batch_size, latent_dim, 1, 1, device=device)
                 fake_imgs = generator(z).detach()
                 critic_real = critic(real_imgs)
                 critic_fake = critic(fake_imgs)
@@ -46,7 +46,7 @@ for epoch in range(num_epochs):
                 opt_C.step()
 
             # Train Generator
-            z = torch.randn(real_imgs.size(0), latent_dim, 1, 1, device=device)
+            z = torch.randn(batch_size, latent_dim, 1, 1, device=device)
             gen_imgs = generator(z)
             loss_G = -critic(gen_imgs).mean()
             opt_G.zero_grad()
@@ -54,9 +54,11 @@ for epoch in range(num_epochs):
             opt_G.step()
 
             # Log progress
-            data_loader_tqdm.set_postfix(loss_C=loss_C.item(), loss_G=loss_G.item())
+            critic_accuracy = critic_accuracy(critic_real, critic_fake)
+            data_loader_tqdm.set_postfix(loss_C=loss_C.item(), loss_G=loss_G.item(), C_acc=critic_accuracy)
             writer.add_scalar("Loss/Critic", loss_C.item(), j)
             writer.add_scalar("Loss/Generator", loss_G.item(), j)
+            writer.add_scalar("Critic Accuracy", critic_accuracy, j)
             j += 1
 
     # epoch end
