@@ -14,7 +14,7 @@ latent_dim = 100
 lr = 1e-4
 n_critic = 5
 lambda_gp = 10
-num_epochs = 10
+num_epochs = 20
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
