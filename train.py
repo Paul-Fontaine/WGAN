@@ -55,11 +55,10 @@ for epoch in range(num_epochs):
             opt_G.step()
 
             # Log progress
-            critic_accuracy = critic_accuracy(critic_real, critic_fake)
             data_loader_tqdm.set_postfix(loss_C=loss_C.item(), loss_G=loss_G.item(), C_acc=critic_accuracy)
             writer.add_scalar("Loss/Critic", loss_C.item(), j)
             writer.add_scalar("Loss/Generator", loss_G.item(), j)
-            writer.add_scalar("Critic Accuracy", critic_accuracy, j)
+            writer.add_scalar("Critic Accuracy", critic_accuracy(critic_real, critic_fake), j)
             j += 1
 
     # epoch end
